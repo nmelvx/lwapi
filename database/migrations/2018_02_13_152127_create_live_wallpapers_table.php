@@ -15,15 +15,14 @@ class CreateLiveWallpapersTable extends Migration
     {
         Schema::create('live_wallpapers', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->nullable();
             $table->integer('typeID')->index('typeID');
             $table->integer('categID')->index('categID');
             $table->string('previewURL')->nullable();
-            $table->string('resourcesURL')->nullable();
+            $table->string('resourceURL')->nullable();
             $table->string('title');
             $table->integer('statusID')->index('statusID');
-            $table->integer('ratingUp');
-            $table->integer('ratingDown');
+            $table->integer('ratingUp')->default(0);
+            $table->integer('ratingDown')->default(0);
             $table->timestamps();
         });
     }

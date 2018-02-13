@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class LiveWallpapers extends Model
 {
+    protected $table = 'live_wallpapers';
+
     protected $fillable = [
-        'typeID', 'categID', 'previewURL', 'resourcesURL', 'title', 'statusID', 'ratingUp', 'ratingDown'
+        'typeID', 'categID', 'previewURL', 'resourceURL', 'title', 'statusID', 'ratingUp', 'ratingDown'
     ];
 
-    protected $table = 'live_wallpapers';
 }

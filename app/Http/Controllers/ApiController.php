@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\FilesRepository;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -15,11 +16,13 @@ class ApiController extends Controller
 
     private $user;
     private $lw;
+    private $file;
 
-    public function __construct()
+    public function __construct(FilesRepository $filesRepository)
     {
         $this->user = new User();
         $this->lw = new LiveWallpapers();
+        $this->file = $filesRepository;
     }
 
     public function login(Request $request){
@@ -97,31 +100,35 @@ class ApiController extends Controller
 
     public function sendToPublicDrirectory(Request $request){
 
-        $lw = $this->lw->updateOrCreate(
-            [
-                'id' => isset($request->lwID)? $request->lwID:0
-            ],
-            [
-                'typeID' => $request->typeID,
-                'categID' => $request->categID,
-                'previewURL' => $request->previewURL,
-                'resourcesURL' => $request->resourcesURL,
-                'title' => $request->title,
-                'statusID' => $request->statusID,
-                'ratingUp' => $request->ratingUp,
-                'ratingDown' => $request->ratingDown
-            ]
-        );
+        try {
+            $lw = $this->lw->updateOrCreate(
+                [
+                    'id' => isset($request->lwID) ? $request->lwID : 0
+                ],
+                [
+                    'typeID' => $request->typeID,
+                    'categID' => $request->categID,
+                    'title' => $request->title,
+                    'statusID' => $request->statusID,
+                    'ratingUp' => $request->ratingUp,
+                    'ratingDown' => $request->ratingDown
+                ]
+            );
 
-        if($lw->wasRecentlyCreated){
+            $this->file->saveOrUpdate($request->file('preview_img'), $lw, 'previewURL', 'uploads/images');
+            $this->file->saveOrUpdate($request->file('resource'), $lw, 'resourceURL', 'uploads/files/');
+
             return response()->json([
-                'lwID' => $lw->id,
+                'lwID' => $lw->id
+            ]);
+
+        } catch (Exception $e){
+            return response()->json([
+                'code' => $e->getCode(),
+                'message' => $e->getMessage(),
+                'error' => 'invalid'
             ]);
         }
-
-        return response()->json([
-            'error' => 'invalid',
-        ]);
     }
 
     public function toUser($token = false)
