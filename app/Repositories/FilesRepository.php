@@ -15,7 +15,8 @@ class FilesRepository {
         $destinationPath = storage_path($path);
 
         $oldFile = pathinfo($file->getClientOriginalName());
-        $fileName = strtolower(Str::slug($oldFile['filename'])) . time() . uniqid() . '.' . strtolower($file->getClientOriginalExtension());
+        //$fileName = strtolower(Str::slug($oldFile['filename'])) . time() . uniqid() . '.' . strtolower($file->getClientOriginalExtension());
+        $fileName = strtolower(Str::slug($oldFile['filename'])) . '.' . strtolower($file->getClientOriginalExtension());
 
         $file->move($destinationPath, $fileName);
 

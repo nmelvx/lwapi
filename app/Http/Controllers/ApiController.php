@@ -115,7 +115,7 @@ class ApiController extends Controller
                 ]
             );
 
-            $this->file->saveOrUpdate($request->file('preview_img'), $lw, 'previewURL', 'uploads/images');
+            $this->file->saveOrUpdate($request->file('preview_img'), $lw, 'previewURL', 'uploads/images/');
             $this->file->saveOrUpdate($request->file('resource'), $lw, 'resourceURL', 'uploads/files/');
 
             return response()->json([
