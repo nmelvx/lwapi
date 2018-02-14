@@ -163,4 +163,21 @@ class ApiController extends Controller
         ]);
     }
 
+    public function listUserLW(Request $request){
+        try {
+            $results = $this->lw
+                //->with('types')
+                ->where('userID', '=', $request->userID)
+                ->get();
+        } catch (Exception $e) {
+            return response()->json([
+                'code' => $e->getCode(),
+                'message' => $e->getMessage(),
+                'status' => 'invalid'
+            ]);
+        }
+
+        return response()->json($results->toArray());
+    }
+
 }
