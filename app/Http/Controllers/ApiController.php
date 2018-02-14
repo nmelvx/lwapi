@@ -31,19 +31,19 @@ class ApiController extends Controller
         try {
             if (!$token = JWTAuth::attempt($credentials)) {
                 return response()->json([
-                    'response' => 'error',
+                    'status' => 'error',
                     'message' => 'invalid_email_or_password',
                 ]);
             }
         } catch (JWTException $e) {
             return response()->json([
-                'response' => 'error',
+                'status' => 'error',
                 'message' => 'failed_to_create_token',
             ]);
         }
 
         return response()->json([
-            'response' => 'success',
+            'status' => 'success',
             'result' => [
                 'userID' => $request->id,
                 'token' => $token,
@@ -132,7 +132,7 @@ class ApiController extends Controller
             return response()->json([
                 'code' => $e->getCode(),
                 'message' => $e->getMessage(),
-                'error' => 'invalid'
+                'status' => 'invalid'
             ]);
         }
     }
@@ -145,6 +145,22 @@ class ApiController extends Controller
         }
 
         return $user;
+    }
+
+    public function deleteLW(Request $request){
+        try {
+            $result = $this->lw->destroy($request->lwID);
+        } catch (Exception $e) {
+            return response()->json([
+                'code' => $e->getCode(),
+                'message' => $e->getMessage(),
+                'status' => 'invalid'
+            ]);
+        }
+
+        return response()->json([
+            'status' => ($result)? 'deleted':'invalid'
+        ]);
     }
 
 }

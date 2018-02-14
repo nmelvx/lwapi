@@ -24,5 +24,6 @@ Route::group(['middleware' => ['api']], function () {
     Route::group(['middleware' => 'jwt.check'], function () {
         Route::get('user', 'ApiController@getAuthUser');
         Route::post('upload', 'ApiController@sendToPublicDrirectory');
+            Route::post('delete', 'ApiController@deleteLW');
     });
 });
