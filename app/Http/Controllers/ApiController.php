@@ -163,6 +163,7 @@ class ApiController extends Controller
         ]);
     }
 
+    //dont forget to add filters in query
     public function listUserLW(Request $request){
         try {
             $results = $this->lw
