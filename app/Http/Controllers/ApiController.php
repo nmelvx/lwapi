@@ -45,6 +45,7 @@ class ApiController extends Controller
         return response()->json([
             'response' => 'success',
             'result' => [
+                'userID' => $request->id,
                 'token' => $token,
             ],
         ]);
@@ -108,6 +109,7 @@ class ApiController extends Controller
                 [
                     'typeID' => $request->typeID,
                     'categID' => $request->categID,
+                    'userID' => $request->userID,
                     'title' => $request->title,
                     'statusID' => $request->statusID,
                     'ratingUp' => $request->ratingUp,
@@ -115,8 +117,12 @@ class ApiController extends Controller
                 ]
             );
 
-            $this->file->saveOrUpdate($request->file('preview_img'), $lw, 'previewURL', 'uploads/images/');
-            $this->file->saveOrUpdate($request->file('resource'), $lw, 'resourceURL', 'uploads/files/');
+            if(!empty($request->file('preview_img'))){
+                $this->file->saveOrUpdate($request->file('preview_img'), $lw, 'previewURL', 'uploads/images/');
+            }
+            if(!empty($request->file('resource'))){
+                $this->file->saveOrUpdate($request->file('resource'), $lw, 'resourceURL', 'uploads/files/');
+            }
 
             return response()->json([
                 'lwID' => $lw->id

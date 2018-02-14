@@ -9,7 +9,7 @@ class LiveWallpapers extends Model
     protected $table = 'live_wallpapers';
 
     protected $fillable = [
-        'typeID', 'categID', 'previewURL', 'resourceURL', 'title', 'statusID', 'ratingUp', 'ratingDown'
+        'typeID', 'categID', 'userID', 'previewURL', 'resourceURL', 'title', 'statusID', 'ratingUp', 'ratingDown'
     ];
 
 }

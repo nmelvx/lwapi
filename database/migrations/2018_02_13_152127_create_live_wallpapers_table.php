@@ -17,6 +17,7 @@ class CreateLiveWallpapersTable extends Migration
             $table->increments('id');
             $table->integer('typeID')->index('typeID');
             $table->integer('categID')->index('categID');
+            $table->integer('userID')->index('userID');
             $table->string('previewURL')->nullable();
             $table->string('resourceURL')->nullable();
             $table->string('title');
