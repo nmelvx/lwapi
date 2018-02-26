@@ -26,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/admin/lw';
 
     /**
      * Create a new controller instance.
@@ -44,7 +44,6 @@ class LoginController extends Controller
 
         if ($this->attemptLogin($request)) {
             $user = $this->guard()->user();
-            $user->generateToken();
 
             return response()->json([
                 'data' => $user->toArray(),

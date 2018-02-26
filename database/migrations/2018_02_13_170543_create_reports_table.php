@@ -13,7 +13,15 @@ class CreateReportsTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('reports', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('lwID')->nullable();
+            $table->boolean('reportDMCA')->default(0);
+            $table->boolean('reportOffens')->default(0);
+            $table->string('email')->nullable();
+            $table->text('message')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +31,6 @@ class CreateReportsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('reports');
     }
 }

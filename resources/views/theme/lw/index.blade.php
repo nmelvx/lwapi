@@ -1,0 +1,49 @@
+@extends('layouts.app')
+@section('content')
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">{{ $data['title'] }}</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tr>
+                        <th>ID</th>
+                        <th>Category</th>
+                        <th>Type</th>
+                        <th>Tags</th>
+                        <th class="text-right">Actions</th>
+                    </tr>
+                    @if(!$items->isEmpty())
+                    @foreach($items as $item)
+                    <tr>
+                        <td>{{ $item->id }}</td>
+                        <td>{{ $item->category->name }}</td>
+                        <td>{{ $item->type->name }}</td>
+                        <td>
+                            @foreach($item->tags as $k => $tag)
+                                {{$tag->name}}{{ ($k+1 < sizeof($item->tags))?', ':'' }}
+                            @endforeach
+                        </td>
+
+                        <td class="text-right">
+                            <a href="{{ route('lw.edit', $item->id) }}" class="label bg-blue">Edit</a>
+                            <a href="{{ route('lw.destroy', $item->id) }}" class="label bg-red">Delete</a>
+                        </td>
+                    </tr>
+                    @endforeach
+                    @else
+                    <tr>
+                        <td colspan="4">No data available</td>
+                    </tr>
+                    @endif
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+@endsection

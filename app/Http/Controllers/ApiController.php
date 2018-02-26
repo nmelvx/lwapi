@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\FilesRepository;
+use App\Tags;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -124,6 +125,22 @@ class ApiController extends Controller
                 $this->file->saveOrUpdate($request->file('resource'), $lw, 'resourceURL', 'uploads/files/');
             }
 
+            /*if(!empty($request->tags))
+            {
+                $tags = (is_array($request->tags))? $request->tags: explode(',', $request->tags);
+
+                foreach ( $tags as $tag )
+                {
+                    $save = new Tags();
+                    $save->name = $tag;
+
+                    $lw->tags()->save($save);
+                }
+            }*/
+
+            $this->saveTags($lw, $request->tags);
+
+
             return response()->json([
                 'lwID' => $lw->id
             ]);
@@ -147,6 +164,23 @@ class ApiController extends Controller
         return $user;
     }
 
+    private function saveTags($element, $request)
+    {
+        if(!empty($request))
+        {
+            $tags = (is_array($request))? $request: explode(',', $request);
+            $element->tags()->detach();
+
+            foreach ( $tags as $k => $tag )
+            {
+                $element->tags()->save((new \App\Tags)->updateOrCreate(['name' => ucwords($tag)]));
+            }
+        } else {
+            $element->tags()->detach();
+        }
+        return true;
+    }
+
     public function deleteLW(Request $request){
         try {
             $result = $this->lw->destroy($request->lwID);
@@ -165,10 +199,15 @@ class ApiController extends Controller
 
     //dont forget to add filters in query
     public function listUserLW(Request $request){
+
+        //dd($request->all());
+
         try {
-            $results = $this->lw
-                //->with('types')
+            $results = LiveWallpapers::with('tags')
+                ->with('category')
+                ->with('type')
                 ->where('userID', '=', $request->userID)
+                ->withFilters($request->all())
                 ->get();
         } catch (Exception $e) {
             return response()->json([
