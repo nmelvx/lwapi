@@ -1,0 +1,246 @@
+{
+	"info": {
+		"_postman_id": "36695279-33d1-6413-2379-17fe766f0d4a",
+		"name": "LW",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://lwapi.web/api/auth/register?phoneUniqueId=p1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://lwapi.web/api/auth/register?phoneUniqueId=p1",
+					"protocol": "http",
+					"host": [
+						"lwapi",
+						"web"
+					],
+					"path": [
+						"api",
+						"auth",
+						"register"
+					],
+					"query": [
+						{
+							"key": "phoneUniqueId",
+							"value": "p1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://lwapi.web/api/auth/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "9",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "afWMgzHC",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://lwapi.web/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"lwapi",
+						"web"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://lwapi.web/api/user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjksImlzcyI6Imh0dHA6Ly9sd2FwaS53ZWIvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE1NDE1MTc4NTAsImV4cCI6MTU0MTUyMTQ1MCwibmJmIjoxNTQxNTE3ODUwLCJqdGkiOiJNUmVvR21rM1Y3cHhoNGFvIn0.EuRO5YUxqmLBj0P_zWcHO3gqQJnXLTVGI6lWmTwSUqU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://lwapi.web/api/user",
+					"protocol": "http",
+					"host": [
+						"lwapi",
+						"web"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://lwapi.web/api/list",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjksImlzcyI6Imh0dHA6Ly9sd2FwaS53ZWIvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE1NDE1MTc4NTAsImV4cCI6MTU0MTUyMTQ1MCwibmJmIjoxNTQxNTE3ODUwLCJqdGkiOiJNUmVvR21rM1Y3cHhoNGFvIn0.EuRO5YUxqmLBj0P_zWcHO3gqQJnXLTVGI6lWmTwSUqU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "userID",
+							"value": "9",
+							"type": "text"
+						},
+						{
+							"key": "categID",
+							"value": "1",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "typeID",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://lwapi.web/api/list",
+					"protocol": "http",
+					"host": [
+						"lwapi",
+						"web"
+					],
+					"path": [
+						"api",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://lwapi.web/api/upload",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6Ly9sd2FwaS5kZXYvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE1MTk3MzgyMjgsImV4cCI6MTUxOTc0MTgyOCwibmJmIjoxNTE5NzM4MjI4LCJqdGkiOiIxcno0bHJPZ0d3TTJGTDFIIn0.CPztcyCeWp0EwIyiEEGimlicjOs60o4iRVaG9GdWJhQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "resource",
+							"type": "file",
+							"src": ""
+						},
+						{
+							"key": "typeID",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "categID",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "title",
+							"value": "Test upload LW",
+							"type": "text"
+						},
+						{
+							"key": "statusID",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "ratingUp",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "ratingDown",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "userID",
+							"value": "9",
+							"type": "text"
+						},
+						{
+							"key": "lwID",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "tags",
+							"value": "3D, Space, Amimatie",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://lwapi.web/api/upload",
+					"protocol": "http",
+					"host": [
+						"lwapi",
+						"web"
+					],
+					"path": [
+						"api",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
