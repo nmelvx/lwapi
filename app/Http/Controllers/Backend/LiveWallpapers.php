@@ -32,6 +32,8 @@ class LiveWallpapers extends Controller
             'type' => 'Listing'
         ];
 
+        //dd($items);
+
         return view('theme.lw.index', compact('items', 'data'));
     }
 

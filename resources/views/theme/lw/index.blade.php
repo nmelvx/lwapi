@@ -11,6 +11,7 @@
                 <table class="table table-hover">
                     <tr>
                         <th>ID</th>
+                        <th>Name</th>
                         <th>Category</th>
                         <th>Type</th>
                         <th>Tags</th>
@@ -20,8 +21,9 @@
                     @foreach($items as $item)
                     <tr>
                         <td>{{ $item->id }}</td>
-                        <td>{{ $item->category->name }}</td>
-                        <td>{{ $item->type->name }}</td>
+                        <td>{{ $item->title }}</td>
+                        <td>@if(isset($item->category->name)){{ $item->category->name }}@endif</td>
+                        <td>@if(isset($item->type->name)){{ $item->type->name }}@endif</td>
                         <td>
                             @foreach($item->tags as $k => $tag)
                                 {{$tag->name}}{{ ($k+1 < sizeof($item->tags))?', ':'' }}

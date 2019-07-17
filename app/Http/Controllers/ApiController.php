@@ -33,7 +33,7 @@ class ApiController extends Controller
             if (!$token = JWTAuth::attempt($credentials)) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'invalid_email_or_password',
+                    'message' => 'invalid_id_or_password',
                 ]);
             }
         } catch (JWTException $e) {
@@ -69,7 +69,7 @@ class ApiController extends Controller
 
         try {
             $user = $this->user->create([
-                'phoneUniqueId' => $request->input('phoneUniquieId'),
+                'phoneUniqueId' => $request->input('phoneUniqueId'),
                 'password' => bcrypt($password),
             ]);
         } catch (QueryException $e){
@@ -86,7 +86,6 @@ class ApiController extends Controller
     }
 
     public function getAuthUser(Request $request){
-
         $user = JWTAuth::toUser($request->token);
 
         return response()->json(['result' => $user]);

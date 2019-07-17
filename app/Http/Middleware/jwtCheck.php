@@ -25,7 +25,7 @@ class jwtCheck
             }else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException){
                 return response()->json(['status'=>'expired']);
             }else{
-                return response()->json(['status'=>'error']);
+                return response()->json(['status'=>'error', 'message'=>'general_error']);
             }
         }
         return $next($request);
