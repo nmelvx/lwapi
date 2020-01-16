@@ -14,7 +14,8 @@ class AddPhoneUniqueIdUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function(Blueprint $table) {
-            $table->string('phoneUniqueId')->after('password')->unique()->nullable();
+            $table->string('phoneUniqueID')->after('password')->unique()->nullable();
+            $table->string('token')->after('phoneUniqueID')->nullable();
         });
     }
 
@@ -27,6 +28,7 @@ class AddPhoneUniqueIdUsersTable extends Migration
     {
         Schema::table('users', function(Blueprint $table) {
             $table->dropColumn('phoneUniqueId');
+            $table->dropColumn('token');
         });
     }
 }

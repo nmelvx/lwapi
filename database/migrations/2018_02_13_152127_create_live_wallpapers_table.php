@@ -21,7 +21,7 @@ class CreateLiveWallpapersTable extends Migration
             $table->string('previewURL')->nullable();
             $table->string('resourceURL')->nullable();
             $table->string('title');
-            $table->enum('statusID', array('active', 'inactive'));
+            $table->tinyInteger('statusID');
             $table->integer('ratingUp')->default(0);
             $table->integer('ratingDown')->default(0);
             $table->timestamps();

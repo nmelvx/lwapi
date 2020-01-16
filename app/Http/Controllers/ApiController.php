@@ -124,19 +124,6 @@ class ApiController extends Controller
                 $this->file->saveOrUpdate($request->file('resource'), $lw, 'resourceURL', 'uploads/files/');
             }
 
-            /*if(!empty($request->tags))
-            {
-                $tags = (is_array($request->tags))? $request->tags: explode(',', $request->tags);
-
-                foreach ( $tags as $tag )
-                {
-                    $save = new Tags();
-                    $save->name = $tag;
-
-                    $lw->tags()->save($save);
-                }
-            }*/
-
             $this->saveTags($lw, $request->tags);
 
 
@@ -172,7 +159,7 @@ class ApiController extends Controller
 
             foreach ( $tags as $k => $tag )
             {
-                $element->tags()->save((new \App\Tags)->updateOrCreate(['name' => ucwords($tag)]));
+                $element->tags()->save((new \App\Tags)->updateOrCreate(['tag' => ucwords($tag)]));
             }
         } else {
             $element->tags()->detach();
@@ -181,8 +168,31 @@ class ApiController extends Controller
     }
 
     public function deleteLW(Request $request){
+
         try {
-            $result = $this->lw->destroy($request->lwID);
+            $lwIDs = explode(',' , preg_replace('/\s+/', '', $request->lwID));
+
+            $item = null;
+            $error = 0;
+            foreach($lwIDs as $id)
+            {
+                if(!empty($request->userID)){
+                    $item = $this->lw->where('userID', $request->userID);
+                } else {
+                    $item = $this->lw;
+                }
+                $item = $item->find($id);
+
+                if(!empty($item)){
+                    $item->tags()->sync([]);
+                    $item->delete();
+                } else {
+                    $error++;
+                }
+
+            }
+
+
         } catch (Exception $e) {
             return response()->json([
                 'code' => $e->getCode(),
@@ -191,8 +201,14 @@ class ApiController extends Controller
             ]);
         }
 
+        if($error){
+            return response()->json([
+                'status' => 'error deleting one or more ids'
+            ]);
+        }
+
         return response()->json([
-            'status' => ($result)? 'deleted':'invalid'
+            'status' => ($item)? 'deleted':'invalid'
         ]);
     }
 

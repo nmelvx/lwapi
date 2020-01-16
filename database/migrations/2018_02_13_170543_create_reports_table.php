@@ -16,8 +16,8 @@ class CreateReportsTable extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('lwID')->nullable();
-            $table->boolean('reportDMCA')->default(0);
-            $table->boolean('reportOffens')->default(0);
+            $table->tinyInteger('reportDMCA')->default(0);
+            $table->tinyInteger('reportOffens')->default(0);
             $table->string('email')->nullable();
             $table->text('message')->nullable();
             $table->timestamps();
