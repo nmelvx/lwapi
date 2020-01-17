@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Reports;
 use App\Repositories\FilesRepository;
 use App\Tags;
 use Illuminate\Database\QueryException;
@@ -176,7 +177,14 @@ class ApiController extends Controller
             $error = 0;
             foreach($lwIDs as $id)
             {
-                if(!empty($request->userID)){
+                $item = $this->lw->where('userID', $request->userID)->find($id);
+                if(!empty($item)){
+                    $item->tags()->sync([]);
+                    $item->delete();
+                } else {
+                    $error++;
+                }
+                /*if(!empty($request->userID)){
                     $item = $this->lw->where('userID', $request->userID);
                 } else {
                     $item = $this->lw;
@@ -188,7 +196,7 @@ class ApiController extends Controller
                     $item->delete();
                 } else {
                     $error++;
-                }
+                }*/
 
             }
 
@@ -201,7 +209,7 @@ class ApiController extends Controller
             ]);
         }
 
-        if($error){
+        if(sizeof($error) == sizeof($lwIDs)){
             return response()->json([
                 'status' => 'error deleting one or more ids'
             ]);
@@ -215,14 +223,13 @@ class ApiController extends Controller
     //dont forget to add filters in query
     public function listUserLW(Request $request){
 
-        //dd($request->all());
-
         try {
             $results = LiveWallpapers::with('tags')
                 ->with('category')
                 ->with('type')
                 ->where('userID', '=', $request->userID)
                 ->withFilters($request->all())
+                ->where('statusID', 1)
                 ->get();
         } catch (Exception $e) {
             return response()->json([
@@ -233,6 +240,43 @@ class ApiController extends Controller
         }
 
         return response()->json($results->toArray());
+    }
+
+    public function unlistUserLW(Request $request){
+        try {
+            $item = $this->lw->where('userID', $request->userID)->find($request->lwID);
+            if(!empty($item)){
+                $item->statusID = 2;
+                $item->save();
+            }
+
+        } catch (Exception $e) {
+            return response()->json([
+                'code' => $e->getCode(),
+                'message' => $e->getMessage(),
+                'status' => 'invalid'
+            ]);
+        }
+
+        return response()->json([
+            'status' => ($item)? 'unlisted':'invalid'
+        ]);
+    }
+
+    public function reportLW(Request $request){
+
+        $report = new Reports();
+        $report->lwID = $request->lwID;
+        $report->reportDMCA = ($request->reportDMCA)? 1:0;
+        $report->reportOffens = ($request->reportOffens)? 1:0;
+        $report->email = $request->email;
+        $report->message = $request->message;
+
+        $report->save();
+
+        return response()->json([
+            'status' => ($report)? 'reported':'invalid'
+        ]);
     }
 
 }

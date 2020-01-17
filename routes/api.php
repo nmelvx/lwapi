@@ -26,5 +26,7 @@ Route::group(['middleware' => ['api']], function () {
         Route::post('upload', 'ApiController@sendToPublicDrirectory');
         Route::post('delete', 'ApiController@deleteLW');
         Route::post('list', 'ApiController@listUserLW');
+        Route::post('unlist', 'ApiController@unlistUserLW');
+        Route::post('report', 'ApiController@reportLW');
     });
 });
