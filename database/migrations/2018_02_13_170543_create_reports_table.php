@@ -15,7 +15,7 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('lwID')->nullable();
+            $table->integer('lwID')->nullable()->index('lwID');
             $table->tinyInteger('reportDMCA')->default(0);
             $table->tinyInteger('reportOffens')->default(0);
             $table->string('email')->nullable();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Ratings;
 use App\Reports;
 use App\Repositories\FilesRepository;
 use App\Tags;
@@ -216,7 +217,7 @@ class ApiController extends Controller
         }
 
         return response()->json([
-            'status' => ($item)? 'deleted':'invalid'
+            'status' => ($item)? 'ok':'invalid'
         ]);
     }
 
@@ -259,7 +260,7 @@ class ApiController extends Controller
         }
 
         return response()->json([
-            'status' => ($item)? 'unlisted':'invalid'
+            'status' => ($item)? 'ok':'invalid'
         ]);
     }
 
@@ -275,7 +276,22 @@ class ApiController extends Controller
         $report->save();
 
         return response()->json([
-            'status' => ($report)? 'reported':'invalid'
+            'status' => ($report)? 'ok':'invalid'
+        ]);
+    }
+
+    public function rateLW(Request $request){
+
+        $report = new Ratings();
+        $report->lwID = $request->lwID;
+        $report->userID = $request->userID;
+        $report->ratingUp = !empty($request->ratingUp)? 1:0;
+        $report->ratingDown = !empty($request->ratingDown)? 1:0;
+
+        $report->save();
+
+        return response()->json([
+            'status' => ($report)? 'ok':'invalid'
         ]);
     }
 
