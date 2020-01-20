@@ -10,10 +10,6 @@
 			"request": {
 				"method": "POST",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "http://lwapi.web/api/auth/register?phoneUniqueId=p1",
 					"protocol": "http",
@@ -87,10 +83,6 @@
 				},
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "http://lwapi.web/api/user",
 					"protocol": "http",
@@ -108,6 +100,159 @@
 		},
 		{
 			"name": "http://lwapi.web/api/list",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjksImlzcyI6Imh0dHA6Ly9sd2FwaS53ZWIvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE1NDE1MTc4NTAsImV4cCI6MTU0MTUyMTQ1MCwibmJmIjoxNTQxNTE3ODUwLCJqdGkiOiJNUmVvR21rM1Y3cHhoNGFvIn0.EuRO5YUxqmLBj0P_zWcHO3gqQJnXLTVGI6lWmTwSUqU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "userID",
+							"value": "9",
+							"type": "text"
+						},
+						{
+							"key": "categID",
+							"value": "1",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "typeID",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://lwapi.web/api/list",
+					"protocol": "http",
+					"host": [
+						"lwapi",
+						"web"
+					],
+					"path": [
+						"api",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://lwapi.web/api/unlist",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjksImlzcyI6Imh0dHA6Ly9sd2FwaS53ZWIvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE1NDE1MTc4NTAsImV4cCI6MTU0MTUyMTQ1MCwibmJmIjoxNTQxNTE3ODUwLCJqdGkiOiJNUmVvR21rM1Y3cHhoNGFvIn0.EuRO5YUxqmLBj0P_zWcHO3gqQJnXLTVGI6lWmTwSUqU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "userID",
+							"value": "9",
+							"type": "text"
+						},
+						{
+							"key": "categID",
+							"value": "1",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "typeID",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://lwapi.web/api/list",
+					"protocol": "http",
+					"host": [
+						"lwapi",
+						"web"
+					],
+					"path": [
+						"api",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://lwapi.web/api/delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjksImlzcyI6Imh0dHA6Ly9sd2FwaS53ZWIvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE1NDE1MTc4NTAsImV4cCI6MTU0MTUyMTQ1MCwibmJmIjoxNTQxNTE3ODUwLCJqdGkiOiJNUmVvR21rM1Y3cHhoNGFvIn0.EuRO5YUxqmLBj0P_zWcHO3gqQJnXLTVGI6lWmTwSUqU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "userID",
+							"value": "9",
+							"type": "text"
+						},
+						{
+							"key": "categID",
+							"value": "1",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "typeID",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://lwapi.web/api/list",
+					"protocol": "http",
+					"host": [
+						"lwapi",
+						"web"
+					],
+					"path": [
+						"api",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://lwapi.web/api/report",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -177,8 +322,8 @@
 					"formdata": [
 						{
 							"key": "resource",
-							"type": "file",
-							"src": ""
+							"value": null,
+							"type": "file"
 						},
 						{
 							"key": "typeID",
