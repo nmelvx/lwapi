@@ -28,6 +28,7 @@ Route::group(['middleware' => ['api']], function () {
         Route::post('list', 'ApiController@listUserLW');
         Route::post('unlist', 'ApiController@unlistUserLW');
         Route::post('report', 'ApiController@reportLW');
-        Route::post('rate', 'ApiController@rateLW');
+        Route::post('rating', 'ApiController@rateLW');
+        Route::post('download', 'ApiController@downloadLW');
     });
 });

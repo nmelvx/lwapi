@@ -8,6 +8,7 @@ use App\Repositories\FilesRepository;
 use App\Tags;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\User;
 use App\LiveWallpapers;
@@ -113,9 +114,7 @@ class ApiController extends Controller
                     'categID' => $request->categID,
                     'userID' => $request->userID,
                     'title' => $request->title,
-                    'statusID' => $request->statusID,
-                    'ratingUp' => $request->ratingUp,
-                    'ratingDown' => $request->ratingDown
+                    'statusID' => $request->statusID
                 ]
             );
 
@@ -283,16 +282,40 @@ class ApiController extends Controller
     public function rateLW(Request $request){
 
         $report = new Ratings();
-        $report->lwID = $request->lwID;
-        $report->userID = $request->userID;
-        $report->ratingUp = !empty($request->ratingUp)? 1:0;
-        $report->ratingDown = !empty($request->ratingDown)? 1:0;
-
-        $report->save();
+        $result = $report->updateOrCreate(
+            [
+                'lwID' => $request->lwID,
+                'userID' => $request->userID
+            ],
+            [
+                'lwID' => $request->lwID,
+                'userID' => $request->userID,
+                'ratingUp' => !empty($request->ratingUp)? 1:0,
+                'ratingDown' => !empty($request->ratingDown)? 1:0
+            ]
+        );
 
         return response()->json([
-            'status' => ($report)? 'ok':'invalid'
+            'status' => ($result->lwID)? 'ok':'invalid'
         ]);
+    }
+
+    public function downloadLW(Request $request)
+    {
+        $filePath = storage_path('uploads\files');
+
+        $result = $this->lw
+            ->where('id', $request->lwID)
+            ->where('userID', $request->userID)
+            ->get();
+
+        if (file_exists($filePath)) {
+            return response()->download($filePath."\\fox-2.rar");
+        } else {
+            return response()->json([
+                'status' => 'invalid'
+            ]);
+        }
     }
 
 }
