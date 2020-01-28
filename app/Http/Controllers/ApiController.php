@@ -209,7 +209,7 @@ class ApiController extends Controller
             ]);
         }
 
-        if(sizeof($error) == sizeof($lwIDs)){
+        if($error == sizeof($lwIDs)){
             return response()->json([
                 'status' => 'error deleting one or more ids'
             ]);
