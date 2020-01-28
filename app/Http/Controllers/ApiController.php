@@ -229,7 +229,7 @@ class ApiController extends Controller
                 ->with('type')
                 ->where('userID', '=', $request->userID)
                 ->withFilters($request->all())
-                ->where('statusID', 1)
+                ->where('statusID', !empty($request->statudID)? 1:0)
                 ->get();
         } catch (Exception $e) {
             return response()->json([
