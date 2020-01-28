@@ -265,18 +265,25 @@ class ApiController extends Controller
 
     public function reportLW(Request $request){
 
-        $report = new Reports();
-        $report->lwID = $request->lwID;
-        $report->reportDMCA = ($request->reportDMCA)? 1:0;
-        $report->reportOffens = ($request->reportOffens)? 1:0;
-        $report->email = $request->email;
-        $report->message = $request->message;
+        try {
+            $report = new Reports();
+            $report->lwID = $request->lwID;
+            $report->reportDMCA = ($request->reportDMCA) ? 1 : 0;
+            $report->reportOffens = ($request->reportOffens) ? 1 : 0;
+            $report->email = $request->email;
+            $report->message = $request->message;
 
-        $report->save();
+            $report->save();
 
-        return response()->json([
-            'status' => ($report)? 'ok':'invalid'
-        ]);
+            return response()->json([
+                'status' => ($report) ? 'ok' : 'invalid'
+            ]);
+        } catch (QueryException $e){
+            if($e->getCode() == '23000'){
+                return response()->json(['error'=>'duplicate_email']);
+            }
+            return response()->json(['error'=> $e->getMessage()]);
+        }
     }
 
     public function rateLW(Request $request){
