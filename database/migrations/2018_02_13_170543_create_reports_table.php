@@ -18,7 +18,7 @@ class CreateReportsTable extends Migration
             $table->integer('lwID')->nullable()->index('lwID');
             $table->tinyInteger('reportDMCA')->default(0);
             $table->tinyInteger('reportOffens')->default(0);
-            $table->string('email')->nullable();
+            $table->string('email')->unique()->nullable();
             $table->text('message')->nullable();
             $table->timestamps();
         });
