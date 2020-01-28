@@ -317,7 +317,7 @@ class ApiController extends Controller
             ->get();
 
         if (file_exists($filePath)) {
-            return response()->download($filePath."\\fox-2.rar");
+            return response()->download($filePath."/".$result[0]->resourceURL);
         } else {
             return response()->json([
                 'status' => 'invalid'
