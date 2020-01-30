@@ -45,9 +45,7 @@ class LoginController extends Controller
         if ($this->attemptLogin($request)) {
             $user = $this->guard()->user();
 
-            return response()->json([
-                'data' => $user->toArray(),
-            ]);
+            return redirect($this->redirectTo);
         }
 
         return $this->sendFailedLoginResponse($request);

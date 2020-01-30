@@ -19,7 +19,7 @@ class LiveWallpapers extends Controller
             ->with('type')
             ->with([
                 'tags' => function($q){
-                    return $q->pluck('name');
+                    return $q->pluck('tag');
                 }
             ])
             ->with('category')
