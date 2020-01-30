@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class LiveWallpapers extends Controller
 {
+
+    protected $lw;
+
+    public function __construct()
+    {
+        $this->lw = new LiveWallpapersModel();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -100,6 +108,12 @@ class LiveWallpapers extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = $this->lw->find($id);
+        $item->tags()->sync([]);
+        $item->delete();
+
+        return redirect('admin/lw')->with(
+            ['message' => 'Live wallpaper deleted successfully.']
+        );
     }
 }

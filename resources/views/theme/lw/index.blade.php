@@ -25,14 +25,19 @@
                         <td>@if(isset($item->category->name)){{ $item->category->name }}@endif</td>
                         <td>@if(isset($item->type->name)){{ $item->type->name }}@endif</td>
                         <td>
-                            @foreach($item->tags as $k => $tag)
-                                {{$tag->name}}{{ ($k+1 < sizeof($item->tags))?', ':'' }}
-                            @endforeach
+                            @if(sizeof($item->tags) > 0)
+                                @foreach($item->tags as $k => $tag)
+                                    {{$tag->tag}}{{ ($k+1 < sizeof($item->tags))?', ':'' }}
+                                @endforeach
+                            @endif
                         </td>
 
                         <td class="text-right">
-                            <a href="{{ route('lw.edit', $item->id) }}" class="label bg-blue">Edit</a>
-                            <a href="{{ route('lw.destroy', $item->id) }}" class="label bg-red">Delete</a>
+                            {!! Form::open(['method' => 'DELETE', 'route' => ['lw.destroy', $item->id], 'class' => 'delete-form']) !!}
+                                {!! link_to_route('lw.edit', 'Edit', $item->id, ['class' => 'btn btn-xs bg-blue'])  !!}
+                                {!! Form::submit('Delete', ['class' => 'btn btn-xs bg-red']) !!}
+                            {!! Form::close() !!}
+
                         </td>
                     </tr>
                     @endforeach
